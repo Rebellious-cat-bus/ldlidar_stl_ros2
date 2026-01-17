@@ -6,7 +6,7 @@ from launch_ros.actions import Node
 parameters=[
         {'product_name': 'LDLiDAR_LD19'},
         {'topic_name': 'scan'},
-	{'port_name': '/dev/ttyS0'}
+        {'port_name': '/dev/ttyS0'}
         {'frame_id': 'base_laser'},
         {'laser_scan_dir': True},
         {'enable_angle_crop_func': False},
@@ -16,7 +16,7 @@ parameters=[
 ---
 Parameter Description:
 ---
-- Set laser scan directon: 
+- Set laser scan directon:
   1. Set counterclockwise, example: {'laser_scan_dir': True}
   2. Set clockwise,        example: {'laser_scan_dir': False}
 - Angle crop setting, Mask data within the set angle range:
@@ -52,11 +52,13 @@ def generate_launch_description():
   )
 
   # base_link to base_laser tf node
+  # 引数の意味: [x, y, z, yaw, pitch, roll, frame_id, child_frame_id]
+  # yaw(方位角)に -1.5708 (-90度) を設定しました
   base_link_to_laser_tf_node = Node(
     package='tf2_ros',
     executable='static_transform_publisher',
     name='base_link_to_base_laser_ld19',
-    arguments=['0','0','0.18','0','0','0','base_link','base_laser']
+    arguments=['0', '0', '0.18', '-1.5708', '0', '0', 'base_link', 'base_laser']
   )
 
 
@@ -67,3 +69,4 @@ def generate_launch_description():
   ld.add_action(base_link_to_laser_tf_node)
 
   return ld
+
