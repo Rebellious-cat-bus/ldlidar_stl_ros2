@@ -61,12 +61,23 @@ def generate_launch_description():
     arguments=['0', '0', '0.18', '-1.5708', '0', '0', 'base_link', 'base_laser']
   )
 
+  # (-90deg ~ +90deg) の範囲で最大距離とその角度を出すノード
+  max_range_node = Node(
+    package='nekobus',
+    executable='max_range_in_fov',
+    name='max_range_in_fov',
+    output='screen',
+    remappings=[
+      ('scan', 'scan'),
+    ],
+  )
 
   # Define LaunchDescription variable
   ld = LaunchDescription()
 
   ld.add_action(ldlidar_node)
   ld.add_action(base_link_to_laser_tf_node)
+  ld.add_action(max_range_node)
 
   return ld
 
