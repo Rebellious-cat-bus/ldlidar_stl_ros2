@@ -215,7 +215,7 @@ void  ToLaserscanMessagePublish(ldlidar::Points2D& src, ldlidar::LiPkg* commpkg,
     }
     lidarpub->publish(output);
     end_scan_time = start_scan_time;
-    RCLCPP_INFO(node->get_logger(), "[ldrobot] pub lidar data");
+    // RCLCPP_INFO(node->get_logger(), "[ldrobot] pub lidar data");
   } 
 }
 
